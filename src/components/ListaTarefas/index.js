@@ -11,22 +11,37 @@ import {
 } from "./styled";
 import bin from "../../assets/bin.png";
 
+const listaDeTarefasInicial = [
+  {
+    titulo: "Fazer exercícios"
+  },
+  {
+    titulo: "Estudar React"
+  }
+];
+
 export function ListaTarefas() {
-  const [lista, setLista] = useState(["Fazer exercícios", "Estudar React"]);
-  const [novaTarefa, setNovaTarefa] = useState("");
+  const [lista, setLista] = useState(listaDeTarefasInicial);
+  const [novaTarefa, setNovaTarefa] = useState({ titulo: "" });
 
   const onChangeTarefa = (event) => {
-    setNovaTarefa(event.target.value);
+    const tarefa = {
+      titulo: event.target.value
+    };
+
+    setNovaTarefa(tarefa);
   };
 
   const adicionaTarefa = () => {
     const novaLista = [...lista, novaTarefa];
     setLista(novaLista);
-    setNovaTarefa("");
+    setNovaTarefa({ titulo: "" });
   };
 
-  const removeTarefa = (tarefa) => {
-    const listaFiltrada = lista.filter((item) => item !== tarefa);
+  const removeTarefa = (tarefaParaRemover) => {
+    const listaFiltrada = lista.filter(
+      (tarefa) => tarefa.titulo !== tarefaParaRemover.titulo
+    );
     setLista(listaFiltrada);
   };
 
@@ -35,7 +50,7 @@ export function ListaTarefas() {
       <InputContainer>
         <TaskInput
           placeholder="Digite aqui uma tarefa"
-          value={novaTarefa}
+          value={novaTarefa.titulo}
           onChange={onChangeTarefa}
         />
         <AddTaskButton onClick={adicionaTarefa}>Adicionar</AddTaskButton>
@@ -45,7 +60,7 @@ export function ListaTarefas() {
           {lista.map((tarefa, index) => {
             return (
               <Tarefa key={index}>
-                <p>{tarefa}</p>
+                <p>{tarefa.titulo}</p>
                 <RemoveButton onClick={() => removeTarefa(tarefa)}>
                   <img src={bin} alt="" width="16px" />
                 </RemoveButton>
@@ -54,7 +69,7 @@ export function ListaTarefas() {
           })}
         </ul>
       </ListaContainer>
-      <LinhaHorizontal/>
+      <LinhaHorizontal />
     </ListaTarefasContainer>
   );
 }
