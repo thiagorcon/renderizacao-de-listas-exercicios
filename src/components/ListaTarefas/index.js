@@ -38,6 +38,12 @@ export function ListaTarefas() {
     setNovaTarefa({ titulo: "" });
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      adicionaTarefa();
+    }
+  };
+
   const removeTarefa = (tarefaParaRemover) => {
     const listaFiltrada = lista.filter(
       (tarefa) => tarefa.titulo !== tarefaParaRemover.titulo
@@ -52,6 +58,7 @@ export function ListaTarefas() {
           placeholder="Digite aqui uma tarefa"
           value={novaTarefa.titulo}
           onChange={onChangeTarefa}
+          onKeyPress={handleKeyPress}
         />
         <AddTaskButton onClick={adicionaTarefa}>Adicionar</AddTaskButton>
       </InputContainer>
