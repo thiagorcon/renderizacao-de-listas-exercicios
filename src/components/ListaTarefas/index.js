@@ -7,7 +7,8 @@ import {
   TaskInput,
   AddTaskButton,
   RemoveButton,
-  LinhaHorizontal
+  LinhaHorizontal,
+  ListaContainerExcluida
 } from "./styled";
 import bin from "../../assets/bin.png";
 
@@ -23,6 +24,8 @@ const listaDeTarefasInicial = [
 export function ListaTarefas() {
   const [lista, setLista] = useState(listaDeTarefasInicial);
   const [novaTarefa, setNovaTarefa] = useState({ titulo: "" });
+
+  const [listaExcluida, setListaExcluida] = useState('')
 
   const onChangeTarefa = (event) => {
     const tarefa = {
@@ -44,12 +47,27 @@ export function ListaTarefas() {
     }
   };
 
+  const listaItensExcluidos = (tarefaParaRemover) => {
+    const novaListaExcluida = [...listaExcluida]
+    console.log('lista de itens excluidos');
+    setListaExcluida(listaExcluida);
+    console.log('teste');
+  }
+
   const removeTarefa = (tarefaParaRemover) => {
+    console.log('removeTarefa');
     const listaFiltrada = lista.filter(
       (tarefa) => tarefa.titulo !== tarefaParaRemover.titulo
     );
     setLista(listaFiltrada);
-  };
+
+    listaItensExcluidos()
+    
+  };  
+  
+  
+  
+  
 
   return (
     <ListaTarefasContainer>
@@ -77,6 +95,12 @@ export function ListaTarefas() {
         </ul>
       </ListaContainer>
       <LinhaHorizontal />
+
+      <ListaContainerExcluida>
+          {listaItensExcluidos}
+      </ListaContainerExcluida>
+
     </ListaTarefasContainer>
+
   );
 }

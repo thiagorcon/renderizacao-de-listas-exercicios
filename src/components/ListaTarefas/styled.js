@@ -44,6 +44,14 @@ export const ListaContainer = styled.div`
   overflow: auto;
 `;
 
+export const ListaContainerExcluida = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+`;
+
+
 export const RemoveButton = styled.button`
   padding: 8px;
   background-color: #de2f45;
